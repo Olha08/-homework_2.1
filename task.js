@@ -5,22 +5,30 @@
 function findIt(arr){
     var res = 0;
 
-    for (var i=0;i<arr.length;i++){
+    arr.forEach(function(item, i, arr){
 
         var leftMax = 0;
         var rightMax = 0;
         // find max for left
         for (var j = i; j >= 0; j--){
-            leftMax = Math.max(leftMax, arr[j]);
+            if (leftMax < arr[j]){
+                leftMax = arr[j];
+            }
         }
 
         // find max for right
         for (var k=i; k < arr.length;k++){
-            rightMax = Math.max(rightMax, arr[k]);
+            if (rightMax < arr[k]){
+                rightMax = arr[k];
+            }
         }
 
-        res += Math.min(leftMax,rightMax) - arr[i];
-    }
+        var min = leftMax;
+        if (min > rightMax){
+            min = rightMax;
+        }
+        res += min - arr[i];
+    });
 
     return res;
 }
